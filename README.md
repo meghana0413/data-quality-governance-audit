@@ -1,39 +1,36 @@
-# DC Traffic Violations & Weather Analytics
-SQL-based data profiling audit on 50K+ records with automated Excel validation.
-#  DC Traffic Violations & Weather Analytics — Data Warehouse Project
+# DC Traffic Violations & Weather Analytics — Data Warehouse Project
 
 **Tools:** MySQL · Python · ETL Pipeline · Star Schema · Data Wrangling  
 **Domain:** Public Safety Analytics · Urban Data Analytics  
-**Type:** Academic Final Project — MS Business Analytics, University of Dayton
+**Course:** Data Warehousing & Business Intelligence — University of Dayton, Spring 2025
 
 ---
 
-##  Project Overview
+## Project Overview
 
-This project builds a fully functional **data warehouse** to analyze **Washington D.C. moving traffic violations** alongside **daily weather conditions**, uncovering patterns in ticketing behavior, agency performance, fine revenue, and weather-related accident trends.
+This project builds a fully functional data warehouse to analyze Washington D.C. moving traffic violations alongside daily weather conditions, uncovering patterns in ticketing behavior, agency performance, fine revenue, and weather-related accident trends.
 
-The end-to-end pipeline covers **data extraction, cleaning, transformation, and loading (ETL)** into a structured MySQL star-schema database, followed by **8 business-driven analytical queries** that answer real operational questions.
+The end-to-end pipeline covers data extraction, cleaning, transformation, and loading (ETL) into a structured MySQL star-schema database, followed by 8 analytical queries that answer real operational questions.
 
 ---
 
-##  Business Questions Answered
+## Business Questions Answered
 
 | # | Question |
 |---|----------|
-| a | Which agencies issue the most tickets — broken down by month? |
+| a | Which agencies issue the most tickets, broken down by month? |
 | b | How many tickets has each agency issued since October 2024? |
 | c | What is the average number of tickets per day of the week? |
 | d | How many tickets were issued during rainy weather periods? |
 | e | What is the total precipitation recorded per month? |
-| f | What are the total fines collected for speeding violations over 10 mph — by month? |
-| g | What is the average ticket volume for each hour of the day (7 AM – 9 PM)? |
+| f | What are the total fines collected for speeding violations over 10 mph, by month? |
+| g | What is the average ticket volume for each hour of the day (7 AM to 9 PM)? |
 | h | Are accident-related tickets more common on rainy vs. non-rainy days? |
 
 ---
 
-## ️ Database Schema — Star Schema Design
-
-```
+## Database Schema — Star Schema Design
+ ```
                     ┌─────────────┐
                     │  DateDim    │
                     │─────────────│
@@ -65,53 +62,43 @@ The end-to-end pipeline covers **data extraction, cleaning, transformation, and 
                     │ agencyID (FK) │
                     │ weatherID (FK)│
                     └───────────────┘
-```
 
----
+ ```
 
-##  ETL Pipeline Summary
+## ETL Pipeline Summary
 
 ### 1. Extract
-- **DC Moving Violations Dataset** — ticket date/time, location, agency, violation type, fine amount, accident indicator, coordinates
-- **Daily Weather Dataset** — temperature, precipitation, humidity, windspeed, visibility, UV index, conditions
+- DC Moving Violations Dataset — ticket date/time, location, agency, violation type, fine amount, accident indicator, coordinates
+- Daily Weather Dataset — temperature, precipitation, humidity, windspeed, visibility, UV index, conditions
 
 ### 2. Transform (Python)
-- Standardized time formats (e.g., `"5"` → `"05:00:00"`)
-- Converted all dates to `YYYY-MM-DD` format
+- Standardized time formats (e.g., "5" to "05:00:00")
+- Converted all dates to YYYY-MM-DD format
 - Decomposed dates into year, month, day, day-of-week for dimensional modeling
-- Normalized weather condition labels (`"rain"`, `"RAIN"`, `"Rain"` → unified `"Rain"`)
+- Normalized weather condition labels so rain, RAIN, Rain all map to the same value
 - Matched every violation record to its corresponding weather record by date
 - Removed rows with missing or invalid key fields
 
 ### 3. Load
-- Loaded into MySQL `finalproject` database using a **star schema**
-- Dimension tables store unique entities (one row per date / agency / weather day)
-- Fact table links to dimensions via foreign keys — prevents redundancy and ensures referential integrity
-- **Incremental load logic** — only new records (by date) are inserted on each pipeline run, preventing duplicates
+- Loaded into MySQL finalproject database using a star schema
+- Dimension tables store unique entities — one row per date, agency, and weather day
+- Fact table links to dimensions via foreign keys to prevent redundancy
+- Incremental load logic inserts only new records by date, preventing duplicates
 
 ---
 
-##  File Structure
-
-```
-dc-traffic-violations-weather-analytics/
-│
-├── final_project_meghana_mudunuri.sql          # Database schema — CREATE TABLE statements
-├── final_project_queries_meghana_mudunuri.sql  # 8 analytical SQL queries
-├── ETL_and_Data_Wrangling_Documentation.docx   # Full ETL process documentation
-├── README.md                                   # Project overview (this file)
-│
-└── (coming soon)
-    ├── etl_pipeline.ipynb                      # Python ETL notebook
-    ├── data_cleaning.ipynb                     # Data wrangling steps
-    └── screenshots/                            # Query output screenshots
-```
+## Files in This Repo
+├── final_project_meghana_mudunuri.sql           # Database schema, CREATE TABLE statements
+├── final_project_queries_meghana_mudunuri.sql   # 8 analytical SQL queries
+├── ETL_and_Data_Wrangling_Documentation.docx    # Full ETL process write-up
+└── README.md
 
 ---
 
-##  Sample Query Highlight
+## Sample Query
 
-**Accident rate on rainy vs. non-rainy days:**
+Accident rate on rainy vs. non-rainy days:
+
 ```sql
 SELECT 
     CASE 
@@ -131,30 +118,21 @@ GROUP BY WeatherType;
 
 ---
 
-##  Key Takeaways
-
-- Built a production-style **star schema data warehouse** from scratch using raw public datasets
-- Designed an **incremental ETL pipeline** that stays up to date without duplicating records
-- Demonstrated real-world **data wrangling** skills: format normalization, null handling, multi-source joins
-- Delivered **8 analytical queries** answering operational business questions across time, weather, and agency dimensions
-
----
-
-## ️ Tech Stack
+## Tech Stack
 
 | Layer | Tool |
 |-------|------|
 | Database | MySQL |
-| ETL & Cleaning | Python (Pandas, NumPy) |
-| Schema Design | Star Schema (Fact + Dimension tables) |
-| Query Language | SQL (Joins, Window Functions, CASE, Aggregations) |
+| ETL and Cleaning | Python (Pandas, NumPy) |
+| Schema Design | Star Schema — Fact and Dimension tables |
+| Query Language | SQL (Joins, Aggregations, CASE, Window Functions) |
 | Documentation | Microsoft Word |
 
 ---
 
-##  Author
+## Author
 
-**Meghana Satya Lakshmi Mudunuri**  
+Meghana Satya Lakshmi Mudunuri  
 MS Business Analytics — University of Dayton  
- meghana472003@gmail.com  
- [LinkedIn][(https://www.linkedin.com/in/meghana-satya-lakshmi/?skipRedirect=true)]
+meghana472003@gmail.com  
+[LinkedIn](https://www.linkedin.com/in/meghana-satya-lakshmi/)
