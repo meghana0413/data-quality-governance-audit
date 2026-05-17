@@ -157,4 +157,4 @@ GROUP BY WeatherType;
 **Meghana Satya Lakshmi Mudunuri**  
 MS Business Analytics — University of Dayton  
  meghana472003@gmail.com  
- [LinkedIn](https://linkedin.com/in/meghana-mudunuri)
+ [LinkedIn][(https://www.linkedin.com/in/meghana-satya-lakshmi/?skipRedirect=true)]
